@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Create new Record"
+        android:id="@+id/tVRecord"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTRecordName"
+        android:visibility="gone"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD Record"
+        android:id="@+id/btnAddRecord"
+        android:visibility="gone"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewAllRecords"
+        android:theme="@style/Base.Widget.AppCompat.ListView"
+        android:textAlignment="center"
+        android:layout_weight="1.17"
+        android:layout_marginTop="10dp" />
+</LinearLayout>
