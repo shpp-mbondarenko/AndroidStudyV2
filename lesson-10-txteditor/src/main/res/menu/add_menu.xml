@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:txteditor="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/group1">
+        <item android:id="@+id/addNew"
+            txteditor:showAsAction="always"
+            android:title="Add new"
+            android:icon="@android:drawable/ic_menu_add">
+        </item>
+    </group>
+    <group android:id="@+id/group2">
+        <item android:id="@+id/saveText"
+            txteditor:showAsAction="ifRoom"
+            android:icon="@android:drawable/ic_menu_save"
+            android:title="@string/manu_save">
+        </item>
+        <item android:id="@+id/exitEditText"
+            android:title="@string/menu_exit"
+            android:icon="@android:drawable/ic_media_previous"
+            txteditor:showAsAction="ifRoom">
+        </item>
+    </group>
+
+</menu>

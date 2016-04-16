@@ -12,12 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/listFragment"
         android:layout_weight="1"
-        android:background="#e97ed9"></FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/editTextFragment"
-        android:layout_weight="1"
-        android:background="#cf75ed"></FrameLayout>
+        android:background="@color/listColor"></FrameLayout>
+
 
 </LinearLayout>

@@ -2,10 +2,16 @@ package ua.mycompany.txteditor;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,15 +31,12 @@ public class ListFragment extends Fragment {
 
     String RECORD_NAME = "name";
     ListView lv;
-    TextView tVRecord;
-    Button btnAddRecord;
-    EditText eTRecordName;
     ArrayList<String> headers;
     RecordsHelper recordsHelper;
     DBHelper dbHelper;
     SQLiteDatabase db;
     ArrayAdapter<String> adapter;
-    int visibility = 1;
+    final String LOG_TAG = "myLogs";
 
     public interface fragmentEventListener {
         public void someEvent(String s);
@@ -51,6 +54,7 @@ public class ListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG, "--- ListFragmrnt: onCreate ---");
         dbHelper = new DBHelper(getActivity().getApplicationContext());
         // connecting to DB
         db = dbHelper.getWritableDatabase();
@@ -67,62 +71,36 @@ public class ListFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        tVRecord = (TextView) view.findViewById(R.id.tVRecord);
-        eTRecordName = (EditText) view.findViewById(R.id.eTRecordName);
-        btnAddRecord = (Button) view.findViewById(R.id.btnAddRecord);
+
         lv = (ListView) view.findViewById(R.id.listViewAllRecords);
 
-        tVRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.tVRecord:
-                        if (visibility == 0) {
-                            btnAddRecord.setVisibility(View.GONE);
-                            eTRecordName.setVisibility(View.GONE);
-                            visibility = 1;
-                        } else {
-                            btnAddRecord.setVisibility(View.VISIBLE);
-                            eTRecordName.setVisibility(View.VISIBLE);
-                            visibility = 0;
-                        }
+        reBuildList();
 
-                }
-            }
-        });
-
-        reBuildList(headers);
-
-        btnAddRecord.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                String text = eTRecordName.getText().toString();
-                recordsHelper.addRecord(db, text, text);
-                recordsHelper.viewAllRecords(db);
-                btnAddRecord.setVisibility(View.GONE);
-                eTRecordName.setVisibility(View.GONE);
-                visibility = 1;
-                    //after adding new record refresh listView
-                headers = recordsHelper.getRecordHeaders(db);
-                reBuildList(headers);
-            }
-        });
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = adapter.getItem(position);
-                Toast.makeText(getActivity().getApplicationContext(), item, Toast.LENGTH_LONG).show();
-                someEventListener.someEvent(item);
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    Toast.makeText(getActivity().getApplicationContext(), item, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getActivity().getApplicationContext(), EditTextActivity.class);
+                    intent.putExtra(RECORD_NAME, item);
+                    startActivity(intent);
+                }
+                if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT) {
+                    someEventListener.someEvent(item);
+                }
             }
         });
     }
 
-    private void reBuildList(ArrayList<String> headers) {
+    public void reBuildList() {
+        headers = recordsHelper.getRecordHeaders(db);
         adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                android.R.layout.simple_list_item_1,
+                R.layout.list_item,
                 headers);
         lv.setAdapter(adapter);
     }
+
+
 }

@@ -1,12 +1,14 @@
 package ua.mycompany.txteditor;
 
 import android.app.Fragment;
+import android.app.Instrumentation;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,7 +49,15 @@ public class EditTextFragment extends Fragment {
         // connecting to DB
         db = dbHelper.getWritableDatabase();
         recordsHelper = new RecordsHelper();
-        recordName = getArguments().getString(RECORD_NAME,"");
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        recordName = getActivity().getIntent().getStringExtra(RECORD_NAME);
+        } else {
+            if (getResources().getConfiguration().screenWidthDp <= 640) {
+                recordName = getActivity().getIntent().getStringExtra(RECORD_NAME);
+            } else {
+                recordName = getArguments().getString(RECORD_NAME);
+            }
+        }
 
     }
 
@@ -74,7 +84,11 @@ public class EditTextFragment extends Fragment {
         Log.d(LOG_TAG, "--- Edit Text Fragment: saveText() ---");
         String text = "";
         text = eTEditRecord.getText().toString();
-        recordsHelper.saveRecord(db, recordName, text);
+        if (recordName.equals("1")) {
+            recordsHelper.addRecord(db, text, text);
+        } else {
+            recordsHelper.saveRecord(db, recordName, text);
+        }
     }
 
 
@@ -86,6 +100,13 @@ public class EditTextFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "SAVING TEXT", Toast.LENGTH_LONG).show();
                 break;
             case  R.id.exitEditText:
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    getActivity().onBackPressed();
+                } else {
+                    if (getResources().getConfiguration().screenWidthDp <= 640) {
+                        getActivity().onBackPressed();
+                    } else {}
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

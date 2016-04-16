@@ -5,31 +5,7 @@
     android:weightSum="1">
 
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Create new Record"
-        android:id="@+id/tVRecord"
-        android:layout_marginTop="15dp"
-        android:clickable="true"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:textStyle="bold" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/eTRecordName"
-        android:visibility="gone"/>
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="ADD Record"
-        android:id="@+id/btnAddRecord"
-        android:visibility="gone"/>
 
     <ListView
         android:layout_width="match_parent"

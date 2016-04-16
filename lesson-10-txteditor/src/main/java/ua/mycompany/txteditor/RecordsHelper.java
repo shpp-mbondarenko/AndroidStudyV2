@@ -74,11 +74,11 @@ public class RecordsHelper {
         c.close();
     }
 
-    public String getRecordText(SQLiteDatabase db, String recordName) {
+    public String getRecordText(SQLiteDatabase db, String recordHeader) {
         Cursor c = null;
         String res = "";
         String selection = "recordHeader = ?";
-        String[] selectionArgs = new String[] { recordName };
+        String[] selectionArgs = new String[] { recordHeader };
         c = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null);
         //place cursor on first position
         // if c is null return false
@@ -104,6 +104,7 @@ public class RecordsHelper {
         cv.put("recordText", recordText);
         // обновляем по id
         int updCount = db.update(TABLE_NAME, cv, "recordHeader = ?", new String[] { recordHeader });
+
 
     }
 }

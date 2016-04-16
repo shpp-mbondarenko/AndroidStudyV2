@@ -1,0 +1,1 @@
+include ':app', ':nawmenu', ':lesson-10-edittextfragment', ':lesson-10-editTextFragmentv2', ':lesson-10-fragment', ':lesson-10-txteditor'
