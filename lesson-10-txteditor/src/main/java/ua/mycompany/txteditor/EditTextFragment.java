@@ -72,7 +72,7 @@ public class EditTextFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.d(LOG_TAG,"--- EditText:onViewCreated record name - " + recordName +"!");
+        Log.d(LOG_TAG,"--- EditText:onViewCreated record name ---" + recordName +"!");
         String text = recordsHelper.getRecordText(db, recordName);
         eTEditRecord.setText(text);
     }

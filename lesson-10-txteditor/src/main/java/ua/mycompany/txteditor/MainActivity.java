@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.frag
     Fragment editTextFragment;
     FrameLayout editFrame;
     FrameLayout listFrame;
-    DialogFragment dlg;
     final String LOG_TAG = "myLogs";
 
     @Override
@@ -30,9 +29,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.frag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         Log.d(LOG_TAG, "--- MainActivity OnCreate ---");
-
-        dlg = new AddDialogFragment();
-
 
         listFrame = (FrameLayout) findViewById(R.id.listFragment);
         editFrame = (FrameLayout) findViewById(R.id.editTextFragment);
@@ -45,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.frag
 //            getResources().getConfiguration().screenWidthDp + "",
 //                    Toast.LENGTH_LONG).show();
 //        }
-
 
         listFragment = new ListFragment();
         editTextFragment = new EditTextFragment();
@@ -114,12 +109,17 @@ public class MainActivity extends AppCompatActivity implements ListFragment.frag
         switch (item.getItemId()) {
             case R.id.addNew:
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    Toast.makeText(getApplicationContext(), "ADD BUT 2", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), EditTextActivity.class);
                     String t = "1";
                     intent.putExtra(RECORD_NAME, t);
                     startActivity(intent);
-                } else {
+                } else if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT &&
+                 getResources().getConfiguration().screenWidthDp <= 640)  {
+                    Intent intent = new Intent(getApplicationContext(), EditTextActivity.class);
+                    String t = "1";
+                    intent.putExtra(RECORD_NAME, t);
+                    startActivity(intent);
+                } else if (getResources().getConfiguration().screenWidthDp > 640) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     editTextFragment = EditTextFragment.newInstance("1");
                     ft.replace(R.id.editTextFragment, editTextFragment);

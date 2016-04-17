@@ -16,7 +16,7 @@
         </item>
         <item android:id="@+id/exitEditText"
             android:title="@string/menu_exit"
-            android:icon="@android:drawable/ic_media_previous"
+            android:icon="@drawable/arrow_back"
             txteditor:showAsAction="ifRoom">
         </item>
     </group>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TxtEditor</string>
+    <string name="app_name">Text Editor</string>
     <string name="manu_save">Save</string>
     <string name="menu_exit">Exit</string>
 </resources>

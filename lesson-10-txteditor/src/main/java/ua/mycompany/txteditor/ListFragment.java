@@ -54,7 +54,7 @@ public class ListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(LOG_TAG, "--- ListFragmrnt: onCreate ---");
+        Log.d(LOG_TAG, "--- ListFragment: onCreate ---");
         dbHelper = new DBHelper(getActivity().getApplicationContext());
         // connecting to DB
         db = dbHelper.getWritableDatabase();
